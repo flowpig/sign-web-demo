@@ -1,0 +1,38 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="{% static 'jquery-3.2.1.js' %}"></script>
+</head>
+<body>
+    {% csrf_token %}
+    <h3>用户名:{{ userinfo }}</h3>
+    <button id="sign">签到</button>
+    <a href="/logout/">退出登录</a>
+
+    <script>
+        // 签到逻辑
+        $('#sign').click(function () {
+             $.ajax({
+            url: "/sign/",
+            type: "POST",
+            data: {
+                "csrfmiddlewaretoken": $("[name='csrfmiddlewaretoken']").val(),
+                "user": '{{ userinfo }}',
+            },
+            success: function (data) {
+                data = JSON.parse(data);
+                if (data["status_code"] === 10000) {
+                    alert(data['msg'])
+                }
+                if (data["status_code"] === 10001) {
+                    alert(data['msg'])
+                }
+            }
+        })
+        })
+    </script>
+</body>
+</html>
