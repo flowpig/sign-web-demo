@@ -11,7 +11,7 @@ class UserInfo(models.Model):
         verbose_name = "用户表"
 
 class Sign(models.Model):
-    user = models.ForeignKey(verbose_name='用户',to='UserInfo')
+    user = models.ForeignKey(verbose_name='用户',to='UserInfo',on_delete=models.CASCADE)
     sign_date = models.DateTimeField(verbose_name='签到日期',auto_now_add=True)
 
     class Meta:
